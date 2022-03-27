@@ -107,6 +107,7 @@ object ArnoutVinot {
         }
       }
     }
+    aux(0,0)
   }
 
   //Question 3

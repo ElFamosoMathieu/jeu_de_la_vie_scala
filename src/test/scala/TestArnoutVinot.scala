@@ -115,21 +115,14 @@ class TestArnoutVinot extends FunSuite{
 
   test("survivantes figure 3"){
     val grille = survivantes(chainesToGrille(l3))
-    val grille_temoin = List()
+    val grille_temoin = List((0,1), (0,2), (0,3))
     assert(grille == grille_temoin)
   }
 
   test("candidates"){
     val l = List("   ", "XXX", "   ");
     val grille = candidates(chainesToGrille(l))
-    val grille_témoin = List()
-    assert(grille == grille_témoin)
-  }
-
-  test("table"){
-    val l = List("   ", "XXX", "   ");
-    val grille = tabVide(chainesToGrille(l))
-    val grille_témoin = List((1,0), (1,1), (1,2))
+    val grille_témoin = List((0,-1), (0,0), (0,1), (1,-1), (2,-1), (2,0), (2,1), (0,2), (2,2), (0,3), (1,3), (2,3))
     assert(grille == grille_témoin)
   }
 
@@ -145,5 +138,22 @@ class TestArnoutVinot extends FunSuite{
     val res = coinInfDroite(chainesToGrille(l))
     val témoin = (2,2)
     assert(res == témoin)
+  }
+
+  test("affichage"){
+    val l = List("X  ", "XXX", "  X");
+    val grille = chainesToGrille(l)
+    afficherGrille(grille)
+  }
+
+  test("affichage2"){
+    val l = List("   ", "XXX", "   ");
+    val grille = chainesToGrille(l)
+    afficherGrille(grille)
+  }
+
+  test("affichage3"){
+    val grille = chainesToGrille(l4)
+    afficherGrille(grille)
   }
 }
