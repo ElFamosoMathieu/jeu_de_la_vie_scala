@@ -204,8 +204,48 @@ class TestArnoutVinot extends FunSuite{
 
   //Question 10
 
-  test("SurivantesG"){
+  test("SurivantesG JDLV"){
+    val l = List("XXX")
+    val grillesurvivant = survivantesG(chainesToGrille(l),survitJDLV,voisines8)
+    val grilletemoin:Grille = List((0,1))
+    assert(grilletemoin==grillesurvivant)
 
+  }
+
+  test("SurivantesG Fredkin"){
+    val l = List("XXX")
+    val grillesurvivant = survivantesG(chainesToGrille(l),survitFREDKLIN,voisines4)
+    val grilletemoin:Grille = List((0,0),(0,2))
+    assert(grilletemoin==grillesurvivant)
+
+  }
+
+  test("CandisatesG JDLV"){
+    val l = List("XXX")
+    val grillecandidat = candidatesG(chainesToGrille(l),voisines8)
+    val grilletemoin:Grille = List((-1,-1), (-1,0), (-1,1), (0,-1), (1,-1), (1,0), (1,1), (-1,2), (1,2), (-1,3), (0,3), (1,3))
+    assert(grilletemoin==grillecandidat)
+  }
+
+  test("CandidatesG Fredkin"){
+    val l = List("XXX")
+    val grillecandidat = candidatesG(chainesToGrille(l),voisines4)
+    val grilletemoin:Grille = List((-1,0), (0,-1), (1,0), (-1,1), (1,1), (-1,2), (0,3), (1,2))
+    assert(grilletemoin==grillecandidat)
+  }
+
+  test("NaissancesG JDLV"){
+    val l = List("XXX")
+    val grillecandidat = naissancesG(chainesToGrille(l),voisines8, naitJDLV)
+    val grilletemoin:Grille = List((-1,1),(1,1))
+    assert(grilletemoin==grillecandidat)
+  }
+
+  test("NaissancesG Fredkin"){
+    val l = List("XXX")
+    val grillecandidat = naissancesG(chainesToGrille(l),voisines8, naitFREDKLIN)
+    val grilletemoin:Grille = List((-1,-1), (-1,1), (0,-1), (1,-1), (1,1), (-1,3), (0,3), (1,3))
+    assert(grilletemoin==grillecandidat)
   }
 
 
