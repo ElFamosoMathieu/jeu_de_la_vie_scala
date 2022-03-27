@@ -156,4 +156,58 @@ class TestArnoutVinot extends FunSuite{
     afficherGrille(grille)
   }
 
+  //Question 8 tests
+
+  test("voisines4"){
+
+    val grilletest:Grille = List((-1,0),(0,-1),(0,1),(1,0))
+
+    assert(voisines4(0,0)==grilletest)
+
+  }
+
+  //Question 9 tests
+
+  test("naitJDLV ok"){
+    assert(naitJDLV(3))
+    assertResult(false){
+      naitJDLV(0)
+    }
+  }
+
+  test("survitJDLV"){
+    assert(survitJDLV(2))
+    assert(survitJDLV(3))
+    assertResult(false){
+      survitJDLV(0)
+    }
+
+  }
+
+  test("naitFredkin ok"){
+    assert(naitFREDKLIN(1))
+    assert(naitFREDKLIN(3))
+    assertResult(false){
+      naitFREDKLIN(0)
+    }
+
+  }
+
+  test( "survitFredkin ok"){
+    assert(survitFREDKLIN(1))
+    assert(survitFREDKLIN(3))
+    assertResult(false){
+      survitFREDKLIN(0)
+    }
+
+  }
+
+  //Question 10
+
+  test("SurivantesG"){
+
+  }
+
+
+
 }
