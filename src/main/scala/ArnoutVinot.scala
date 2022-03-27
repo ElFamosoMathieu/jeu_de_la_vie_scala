@@ -91,13 +91,11 @@ object ArnoutVinot {
   }
 
   def afficherGrille(g:Grille):Unit={
-    val coin_sup_gauche : (Int,Int) = coinSupGauche(g);
-    val coin_inf_droite : (Int,Int) = coinInfDroite(g);
     def aux(ligne:Int, colonne:Int):Unit={
-      if(!(ligne>coin_inf_droite._1)){
-        if(colonne>coin_inf_droite._2){
+      if(!(ligne>coinInfDroite(g)._1)){
+        if(colonne>coinInfDroite(g)._2){
           print("\n")
-          aux(ligne+1, coin_sup_gauche._2)
+          aux(ligne+1, coinSupGauche(g)._2)
         }else{
           if(estX(g,ligne, colonne)){
             print("X")
@@ -118,9 +116,7 @@ object ArnoutVinot {
 
   //Question 4
   def compteVoisines8(g : Grille, l : Int, c : Int):Int={
-    val liste_voisine : List[(Int, Int)] = voisines8(l,c)
-    val res = (liste_voisine foldLeft 0)((somme,couple) => if(estX(g,couple._1,couple._2)) somme + 1 else somme)
-    res
+    (voisines8(l,c) foldLeft 0)((somme,couple) => if(estX(g,couple._1,couple._2)) somme + 1 else somme)
   }
 
   def survivantes(g:Grille):Grille= {
@@ -189,9 +185,7 @@ object ArnoutVinot {
   //Question 10
 
   def compteVoisinesG(g : Grille, l : Int, c : Int, voisinage : (Int, Int)=>List[(Int, Int)]):Int={
-    val liste_voisine : List[(Int, Int)] = voisinage(l,c)
-    val res = (liste_voisine foldLeft 0)((somme,couple) => if(estX(g,couple._1,couple._2)) somme + 1 else somme)
-    res
+    (voisinage(l,c) foldLeft 0)((somme,couple) => if(estX(g,couple._1,couple._2)) somme + 1 else somme)
   }
 
   def survivantesG(g:Grille, regle : (Int)=>Boolean, voisinage : (Int, Int)=>List[(Int, Int)] ):Grille= {
