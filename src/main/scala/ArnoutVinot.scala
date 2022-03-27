@@ -162,15 +162,18 @@ object ArnoutVinot {
 
   //Question 7
   def jeuDeLaVie(init:Grille, n:Int):Unit={
-    println("------")
-    println("étape n° "+n)
-    println("------")
-    if(n>0){
-      afficherGrille(init)
-      jeuDeLaVie(survivantes(init)++naissances(init).distinct, n-1)
-    } else {
-      afficherGrille(init)
+    def aux(init:Grille, n:Int,i : Int):Unit={
+      println("------")
+      println("étape n° "+i)
+      println("------")
+      if(n>i){
+        afficherGrille(init)
+        aux(survivantes(init)++naissances(init).distinct, n,i+1)
+      } else {
+        afficherGrille(init)
+      }
     }
+    aux(init,n,0)
   }
 
   //Question 8
@@ -233,15 +236,18 @@ object ArnoutVinot {
   //Question 11
 
   def moteur(init:Grille, n:Int, regleNaiss : (Int)=>Boolean, regleSurvie : (Int)=>Boolean, voisinage : (Int, Int)=>List[(Int, Int)]):Unit={
-    println("------")
-    println("étape n° "+n)
-    println("------")
-    if(n>0){
-      afficherGrille(init)
-      moteur(survivantesG(init,regleSurvie,voisinage)++naissancesG(init,voisinage, regleNaiss).distinct, n-1,regleNaiss,regleSurvie,voisinage)
-    } else {
-      afficherGrille(init)
+    def aux(init:Grille, n:Int, regleNaiss : (Int)=>Boolean, regleSurvie : (Int)=>Boolean, voisinage : (Int, Int)=>List[(Int, Int)],i :Int):Unit={
+      println("------")
+      println("étape n° "+i)
+      println("------")
+      if(n>i){
+        afficherGrille(init)
+        aux(survivantesG(init,regleSurvie,voisinage)++naissancesG(init,voisinage, regleNaiss).distinct, n,regleNaiss,regleSurvie,voisinage,i+1)
+      } else {
+        afficherGrille(init)
+      }
     }
+    aux(init,n,regleNaiss,regleSurvie,voisinage,0)
   }
 
   //Question 12
@@ -264,7 +270,10 @@ object ArnoutVinot {
     moteur(init, n, naitFREDKLIN, survitFREDKLIN, voisines4diagonales)
   }
 
+  /*
   def main(args: Array[String]): Unit = {
-    jeuDeLaVie(chainesToGrille(List("XXX")), 10)
+    simulationJeuDeLaVie(chainesToGrille(List("XXX")), 10)
   }
+  
+   */
 }
