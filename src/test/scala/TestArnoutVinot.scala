@@ -22,10 +22,46 @@ class TestArnoutVinot extends FunSuite{
     assert(chainesToGrille(l)==grilletest)
   }
 
-  test("grille carre bien convertie"){
-    val grilletest:Grille = List((0,0),(0,1), (0,2),  (1,0), (1,1), (1,2), (2,0), (2,1), (2,2))
+  test("grille carre bien convertie") {
+    val grilletest: Grille = List((0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1), (2, 2))
+  }
 
-    assert(chainesToGrille(l2)==grilletest)
+  test ("estX"){
+    val l = List("XXX", "   ", "   ");
+    val grille = chainesToGrille(l)
+    val res = estX(grille,0,1)
+    assert(estX(grille,0,1))
+    assert(estX(grille,0,0))
+    assert(estX(grille,0,2))
+    assert(!(estX(grille,2,2)))
+  }
+
+  test("pas de survivantes"){
+    val l = List("X  ", "  ", "  X");
+    val grille = survivantes(chainesToGrille(l))
+    val grille_témoin = List()
+    assert(grille == grille_témoin)
+  }
+
+  test ("Compte survivantes"){
+    val l = List("XXX", "   ", "   ");
+    val grille = chainesToGrille(l)
+    val compte1 = compteVoisines8(grille,0,1)
+    val compte2 = compteVoisines8(grille,0,0)
+    val compte3 = compteVoisines8(grille,0,2)
+    val compte4 = compteVoisines8(grille,2,2)
+    assert(compte1 == 2)
+    assert(compte2 == 1)
+    assert(compte3 == 1)
+    assert(compte4 == 0)
+  }
+
+
+  test("survivantes"){
+    val l = List("XXX", "   ", "   ");
+    val grille = survivantes(chainesToGrille(l))
+    val grille_témoin = List((0,1))
+    assert(grille == grille_témoin)
   }
 
   test("grille ligne bien convertie"){
@@ -45,41 +81,4 @@ class TestArnoutVinot extends FunSuite{
 
     assert(chainesToGrille(l5)==grilletest)
   }
-
-
-  /**
-   * Lorsque le test precedent est execute, ScalaTest indique simplement que le 
-   * test a echoue, mais n'explique pas pourquoi. On obtient quelque chose comme cela
-   * 
-   *
-   * {{{
-   *    [info] - one plus one is three? *** FAILED ***
-   * }}}
-   *
-   * Pour avoir plus de details, on utilise une egalite speciale, 
-   * `===` au lieu de `==` (utilisable uniquement dans ScalaTest). Avec le test suivant, 
-   * on obtient
-   * 
-   * {{{
-   *    [info] - details pourquoi un plus plus n'est pas trois *** FAILED ***
-   *    [info]   2 did not equal 3 
-   * }}}
-   *
-   * Utilisez donc toujours l'operateur `===` pour ecrire des tests.
-   */
-
-
-
-  /**
-   * Pour tester les exceptions, on utilise l'operation "intercept". Dans le test suivant,
-   * on verifie que la methode entierDifferentDeZero (defini dans l'objet objHello) lance
-   * l'exception "IllegalArgumentException" si son argument est 0
-   *
-   * Notez le "import" qui permet d'utiliser les methodes definies dans l'objet objHello
-   */
-
-
-  
-
-  
 }

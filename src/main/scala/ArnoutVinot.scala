@@ -87,7 +87,7 @@ object ArnoutVinot {
 
   def estX(g : Grille, l : Int, c : Int):Boolean = g match {
     case Nil => false
-    case (x,y)::q => if ((l == x) && (y == c)) true else estX(q,l,c)
+    case (x,y)::q => if ((x,y) == (l,c)) true else estX(q,l,c)
   }
 
   def afficherGrille(g:Grille):Unit={
