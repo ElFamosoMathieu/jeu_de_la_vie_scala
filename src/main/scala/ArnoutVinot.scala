@@ -120,11 +120,7 @@ object ArnoutVinot {
   }
 
   def survivantes(g:Grille):Grille= {
-    def  aux(grilleDecompte : Grille, g : Grille):Grille= grilleDecompte match{
-      case Nil => Nil
-      case (x,y)::q => if((compteVoisines8(g,x,y) == 2) || (compteVoisines8(g,x,y) == 3)) (x,y)::survivantes(q) else survivantes(q)
-    }
-    aux(g,g)
+    g filter (couple => (compteVoisines8(g,couple._1,couple._2) == 2) || (compteVoisines8(g,couple._1,couple._2) == 3))
   }
 
   //Question 5
@@ -189,11 +185,7 @@ object ArnoutVinot {
   }
 
   def survivantesG(g:Grille, regle : (Int)=>Boolean, voisinage : (Int, Int)=>List[(Int, Int)] ):Grille= {
-    def  aux(grilleDecompte : Grille, g : Grille):Grille= grilleDecompte match{
-      case Nil => Nil
-      case (x,y)::q => if(regle(compteVoisinesG(g,x,y, voisinage)) || (regle(compteVoisinesG(g,x,y,voisinage)))) (x,y)::survivantesG(q,regle,voisinage) else survivantesG(q,regle,voisinage)
-    }
-    aux(g,g)
+    g filter (couple => (regle(compteVoisinesG(g,couple._1,couple._2, voisinage))))
   }
 
   def candidatesG(g:Grille, regle : (Int)=>Boolean, voisinage : (Int, Int)=>List[(Int, Int)] ):Grille={

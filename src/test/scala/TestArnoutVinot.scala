@@ -63,7 +63,7 @@ class TestArnoutVinot extends FunSuite{
     assert(grille == grille_témoin)
   }
 
-  test ("Compte survivantes"){
+  test ("Compte voisines"){
     val l = List("XXX", "   ", "   ");
     val grille = chainesToGrille(l)
     val compte1 = compteVoisines8(grille,0,1)
@@ -78,9 +78,9 @@ class TestArnoutVinot extends FunSuite{
 
 
   test("survivantes"){
-    val l = List("XXX", "   ", "   ");
+    val l = List("   ", "XXX", "   ");
     val grille = survivantes(chainesToGrille(l))
-    val grille_témoin = List((0,1))
+    val grille_témoin = List((1,1))
     assert(grille == grille_témoin)
   }
 
