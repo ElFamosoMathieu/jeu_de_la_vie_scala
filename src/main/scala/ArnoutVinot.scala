@@ -125,18 +125,22 @@ object ArnoutVinot {
 
   //Question 5
   def candidates(g:Grille):Grille={
-    def aux(grilleDecompte: Grille, g : Grille) : Grille = grilleDecompte match{
-      case Nil => Nil
-      case (x,y)::q => cellulesMortes(voisines8(x, y), g, coinSupGauche(g), coinInfDroite(g))++aux(q,g)
-    }
-    aux(g,g).distinct
+    tabVide(g) filter (e => (!g.contains(e)))
   }
 
-  def cellulesMortes(l: List[(Int, Int)], g: Grille, csg: (Int, Int), cid: (Int, Int)): Grille = l match{
-    case Nil => Nil
-    case (x,y)::q => if(!g.contains((x,y)) && x >= csg._1 && y >= csg._2 && x <= cid._1 && y <= cid._2)
-      (x,y)::cellulesMortes(q, g, csg, cid)
-    else cellulesMortes(q, g, csg, cid)
+  def tabVide(g:Grille):Grille={
+    def aux(g:Grille,l:Int,c:Int):Grille={
+      if(coinInfDroite(g)==(l+1,c+1)){
+        coinInfDroite(g)::Nil
+      } else {
+        if(coinInfDroite(g)._2==c){
+          (l,c)::aux(g,l+1,coinSupGauche(g)._2)
+        } else {
+          (l,c)::aux(g,l,c+1)
+        }
+      }
+    }
+    aux(g,coinSupGauche(g)._1-1,coinSupGauche(g)._2-1)
   }
 
   //Question 6
@@ -191,7 +195,7 @@ object ArnoutVinot {
   def candidatesG(g:Grille, regle : (Int)=>Boolean, voisinage : (Int, Int)=>List[(Int, Int)] ):Grille={
     def aux(grilleDecompte: Grille, g : Grille) : Grille = grilleDecompte match{
       case Nil => Nil
-      case (x,y)::q => cellulesMortes(voisinage(x, y), g, coinSupGauche(g), coinInfDroite(g))++aux(q,g)
+      //case (x,y)::q => cellulesMortes(voisinage(x, y), g, coinSupGauche(g), coinInfDroite(g))++aux(q,g)
     }
     aux(g,g).distinct
   }
