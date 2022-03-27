@@ -24,6 +24,26 @@ class TestArnoutVinot extends FunSuite{
 
   test("grille carre bien convertie") {
     val grilletest: Grille = List((0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1), (2, 2))
+
+    assert(chainesToGrille(l2)==grilletest)
+  }
+
+  test("grille ligne bien convertie"){
+    val grilletest:Grille = List((0,0),(0,1),(0,2),(0,3),(0,4))
+
+    assert(chainesToGrille(l3)==grilletest)
+  }
+
+  test("grille colone bien convertie"){
+    val grilletest:Grille = List((0,0),(1,0),(2,0),(3,0),(4,0))
+
+    assert(chainesToGrille(l4)==grilletest)
+  }
+
+  test("grille avec beaucoup de vide bien convertie"){
+    val grilletest:Grille = List((0,16))
+
+    assert(chainesToGrille(l5)==grilletest)
   }
 
   test ("estX"){
@@ -64,21 +84,5 @@ class TestArnoutVinot extends FunSuite{
     assert(grille == grille_témoin)
   }
 
-  test("grille ligne bien convertie"){
-    val grilletest:Grille = List((0,0),(0,1),(0,2),(0,3),(0,4))
 
-    assert(chainesToGrille(l3)==grilletest)
-  }
-
-  test("grille colone bien convertie"){
-    val grilletest:Grille = List((0,0),(1,0),(2,0),(3,0),(4,0))
-
-    assert(chainesToGrille(l4)==grilletest)
-  }
-
-  test("grille avec beaucoup de vide bien convertie"){
-    val grilletest:Grille = List((0,16))
-
-    assert(chainesToGrille(l5)==grilletest)
-  }
 }
