@@ -197,23 +197,37 @@ object ArnoutVinot {
     g filter (couple => (regle(compteVoisinesG(g,couple._1,couple._2, voisinage))))
   }
 
-  def candidatesG(g:Grille, regle : (Int)=>Boolean, voisinage : (Int, Int)=>List[(Int, Int)] ):Grille={
-    def aux(grilleDecompte: Grille, g : Grille) : Grille = grilleDecompte match{
-      case Nil => Nil
-      //case (x,y)::q => cellulesMortes(voisinage(x, y), g, coinSupGauche(g), coinInfDroite(g))++aux(q,g)
+  def candidatesG(g1:Grille, voisinage : (Int, Int)=>List[(Int, Int)]):Grille={
+
+    def aux1(g2:Grille, ite:Int):Grille ={
+
+      if(g1==Nil){
+        Nil
+      }
+
+      def listevoisines:List[(Int,Int)] = voisinage(g1(ite)._1,g1(ite)._2)
+
+      def g3:Grille = g2++( listevoisines filter (X => !g2.contains(X) && !estX(g1,X._1,X._2)))
+
+      if (ite==g1.length-1){
+        g3
+      } else{
+        aux1(g3,ite+1)
+      }
+
     }
-    aux(g,g).distinct
+
+    aux1(Nil,0)
   }
 
-  def naissancesG(g:Grille, regle : (Int)=>Boolean, voisinage : (Int, Int)=>List[(Int, Int)] ):Grille={
-    def aux1(grille_decompte: Grille, res: Grille): Grille = grille_decompte match {
-      case Nil => res
-      case (x,y)::q => if(regle(aux2(candidatesG(g,regle,voisinage)))) aux1(q, res.concat((x,y)::Nil)) else aux1(q, res)
+  def naissancesG(g:Grille, voisinage : (Int, Int)=>List[(Int, Int)], regle : Int=>Boolean):Grille={
+    if(g==Nil){
+      Nil
     }
-    def aux2(l:List[(Int, Int)]): Int = {
-      l.intersect(g).length
-    }
-    aux1(g, List[(Int, Int)]())
+
+    def grilleN:Grille = candidatesG(g,voisinage) filter (X=>regle(compteVoisinesG(g,X._1,X._2,voisinage)))
+
+    grilleN
   }
 
   //Question 11
