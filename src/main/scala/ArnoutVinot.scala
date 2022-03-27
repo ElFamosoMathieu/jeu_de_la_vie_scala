@@ -151,14 +151,13 @@ object ArnoutVinot {
 
   //Question 6
   def naissances(g:Grille):Grille={
-    def aux1(grille_decompte: Grille, res: Grille): Grille = grille_decompte match {
-      case Nil => res
-      case (x,y)::q => if(aux2(candidates(g)) == 3) aux1(q, res.concat((x,y)::Nil)) else aux1(q, res)
+    if(g==Nil){
+      Nil
     }
-    def aux2(l:List[(Int, Int)]): Int = {
-      l.intersect(g).length
-    }
-    aux1(g, List[(Int, Int)]())
+
+    def grilleN:Grille = candidates(g) filter (X=>compteVoisines8(g,X._1,X._2)==3)
+
+    grilleN
   }
 
   //Question 7
