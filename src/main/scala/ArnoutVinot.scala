@@ -197,25 +197,56 @@ object ArnoutVinot {
   }
 
   def candidatesG(g:Grille, regle : (Int)=>Boolean, voisinage : (Int, Int)=>List[(Int, Int)] ):Grille={
-
+    def aux(grilleDecompte: Grille, g : Grille) : Grille = grilleDecompte match{
+      case Nil => Nil
+      case (x,y)::q => cellulesMortes(voisinage(x, y), g, coinSupGauche(g), coinInfDroite(g))++aux(q,g)
+    }
+    aux(g,g).distinct
   }
 
   def naissancesG(g:Grille, regle : (Int)=>Boolean, voisinage : (Int, Int)=>List[(Int, Int)] ):Grille={
-
+    def aux1(grille_decompte: Grille, res: Grille): Grille = grille_decompte match {
+      case Nil => res
+      case (x,y)::q => if(regle(aux2(candidatesG(g,regle,voisinage)))) aux1(q, res.concat((x,y)::Nil)) else aux1(q, res)
+    }
+    def aux2(l:List[(Int, Int)]): Int = {
+      l.intersect(g).length
+    }
+    aux1(g, List[(Int, Int)]())
   }
 
   //Question 11
 
-  def moteur():Unit={
-
+  def moteur(init:Grille, n:Int, regleNaiss : (Int)=>Boolean, regleSurvie : (Int)=>Boolean, voisinage : (Int, Int)=>List[(Int, Int)]):Unit={
+    println("------")
+    println("étape n° "+n)
+    println("------")
+    if(n>0){
+      afficherGrille(init)
+      moteur(survivantesG(init,regleSurvie,voisinage)++naissancesG(init,regleNaiss,voisinage).distinct, n-1,regleNaiss,regleSurvie,voisinage)
+    } else {
+      afficherGrille(init)
+    }
   }
 
   //Question 12
 
+  def simulationJeuDeLaVie(init:Grille,n:Int):Unit={
+    moteur(init, n, naitJDLV, survitJDLV, voisines8)
+  }
 
+  def simulationAutomateDeFredklin(init:Grille,n:Int):Unit={
+    moteur(init, n, naitFREDKLIN, survitFREDKLIN, voisines4)
+  }
 
   //Question 13
 
+  def voisines4diagonales(l:Int, c:Int):List[(Int, Int)]={
+    (l-1,c-1)::(l-1,c+1)::(l+1,c-1)::(l+1,c+1)::Nil
+  }
 
+  def simulationVarianteAutomateDeFredklin(init:Grille,n:Int):Unit={
+    moteur(init, n, naitFREDKLIN, survitFREDKLIN, voisines4diagonales)
+  }
 
 }
