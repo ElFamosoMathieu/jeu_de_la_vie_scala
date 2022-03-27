@@ -238,7 +238,7 @@ object ArnoutVinot {
     println("------")
     if(n>0){
       afficherGrille(init)
-      moteur(survivantesG(init,regleSurvie,voisinage)++naissancesG(init,regleNaiss,voisinage).distinct, n-1,regleNaiss,regleSurvie,voisinage)
+      moteur(survivantesG(init,regleSurvie,voisinage)++naissancesG(init,voisinage, regleNaiss).distinct, n-1,regleNaiss,regleSurvie,voisinage)
     } else {
       afficherGrille(init)
     }
