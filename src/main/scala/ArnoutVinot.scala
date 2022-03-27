@@ -134,14 +134,17 @@ object ArnoutVinot {
 
       def listevoisines:List[(Int,Int)] = voisines8(g1(ite)._1,g1(ite)._2)
 
+      def g3:Grille = g2++( listevoisines filter (X => !g2.contains(X) && !estX(g1,X._1,X._2)))
+
       if (ite==g1.length-1){
-        def gfinal:Grille = g2++( listevoisines filter (place => !g2.contains(place) && !estX(g1,place._1,place._2)))
-        gfinal
+        g3
       } else{
-        def g3:Grille = g2++( listevoisines filter (X => !g2.contains(X) && !estX(g1,X._1,X._2)))
         aux1(g3,ite+1)
       }
+
     }
+
+
     aux1(Nil,0)
   }
 
