@@ -107,7 +107,7 @@ object ArnoutVinot {
         }
       }
     }
-    aux(0,0)
+    aux(coinSupGauche(g)._1,coinSupGauche(g)._2)
   }
 
   //Question 3
@@ -250,4 +250,7 @@ object ArnoutVinot {
     moteur(init, n, naitFREDKLIN, survitFREDKLIN, voisines4diagonales)
   }
 
+  def main(args: Array[String]): Unit = {
+    jeuDeLaVie(chainesToGrille(List("XXX")), 10)
+  }
 }
