@@ -1,0 +1,5 @@
+name := "jeu_de_la_vie_scala"
+
+version := "0.1"
+
+scalaVersion := "2.13.8"
